@@ -3,404 +3,464 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CleanStart Rotterdam — Schoonmaakdiensten</title>
-    <link rel="stylesheet" href="style.css">
+    <title>CleanStart Rotterdam — Premium Schoonmaakdiensten</title>
+    <meta name="description" content="CleanStart Rotterdam — betaalbare, kwalitatieve en betrouwbare schoonmaakdiensten in Rotterdam.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-    <!-- HEADER / ШАПКА -->
-    <header id="home">
-        <nav class="navbar">
-            <div class="nav-brand">CleanStart Rotterdam</div>
-            <button class="nav-toggle" aria-label="Menu">&#9776;</button>
-            <ul class="nav-links">
-                <li><a href="#diensten">Diensten</a></li>
-                <li><a href="#partners">Partners</a></li>
-                <li><a href="#prijzen">Prijzen</a></li>
-                <li><a href="#voordelen">Voordelen</a></li>
-                <li><a href="#plan">Plan</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-        <div class="hero">
-            <h1>CleanStart Rotterdam</h1>
-            <p class="tagline">Your fresh start. Our clean touch.</p>
-            <p class="subtitle">Betaalbare, kwalitatieve en betrouwbare schoonmaakdiensten</p>
-            <a href="#contact" class="btn-primary">Offerte aanvragen</a>
+    <!-- Loading Screen -->
+    <div id="loader" class="loader">
+        <div class="loader-content">
+            <div class="loader-logo">CS</div>
+            <div class="loader-bar"><div class="loader-progress"></div></div>
         </div>
-    </header>
+    </div>
 
-    <!-- DIENSTEN / УСЛУГИ -->
-    <section id="diensten" class="section">
+    <!-- Custom Cursor -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-follower" id="cursorFollower"></div>
+
+    <!-- Scroll Progress -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="nav-inner">
+            <a href="#" class="nav-logo">
+                <span class="logo-icon">CS</span>
+                <span class="logo-text">CleanStart</span>
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="#diensten" class="nav-link">Diensten</a>
+                <a href="#voordelen" class="nav-link">Voordelen</a>
+                <a href="#prijzen" class="nav-link">Prijzen</a>
+                <a href="#plan" class="nav-link">Plan</a>
+                <a href="#contact" class="nav-link nav-link-cta">Contact</a>
+            </div>
+            <button class="nav-toggle" id="navToggle" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-bg">
+            <canvas id="heroCanvas"></canvas>
+            <div class="hero-gradient-orb hero-orb-1"></div>
+            <div class="hero-gradient-orb hero-orb-2"></div>
+            <div class="hero-gradient-orb hero-orb-3"></div>
+            <div class="hero-noise"></div>
+            <div class="hero-grid-lines"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-badge" data-animate="fade-up" data-delay="0.5">
+                <span class="badge-dot"></span>
+                Rotterdam, 2026
+            </div>
+            <h1 class="hero-title" data-animate="fade-up" data-delay="0.7">
+                <span class="title-line">Your Fresh</span>
+                <span class="title-line title-accent">Start.</span>
+                <span class="title-line">Our Clean</span>
+                <span class="title-line title-accent">Touch.</span>
+            </h1>
+            <p class="hero-subtitle" data-animate="fade-up" data-delay="1.0">
+                Betaalbare, kwalitatieve en betrouwbare schoonmaakdiensten 
+                voor woningen, kantoren en meer in Rotterdam.
+            </p>
+            <div class="hero-cta" data-animate="fade-up" data-delay="1.2">
+                <a href="#contact" class="btn-primary magnetic-btn">
+                    <span class="btn-text">Offerte aanvragen</span>
+                    <span class="btn-icon">→</span>
+                    <div class="btn-glow"></div>
+                </a>
+                <a href="#diensten" class="btn-secondary magnetic-btn">
+                    <span class="btn-text">Ontdek meer</span>
+                </a>
+            </div>
+        </div>
+        <div class="hero-scroll-indicator" data-animate="fade-up" data-delay="1.5">
+            <div class="scroll-line"></div>
+            <span>Scroll</span>
+        </div>
+    </section>
+
+
+    <!-- Services Section -->
+    <section class="section section-services" id="diensten">
         <div class="container">
-            <h2>Onze Diensten</h2>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">&#127968;</div>
+            <div class="section-header" data-animate="fade-up">
+                <span class="section-tag">Diensten</span>
+                <h2 class="section-title">Wat wij <span class="text-gradient">bieden</span></h2>
+                <p class="section-desc">Professionele schoonmaakdiensten op maat voor elke situatie</p>
+            </div>
+            <div class="bento-grid">
+                <div class="bento-card bento-large" data-animate="fade-up" data-delay="0.1">
+                    <div class="card-glow"></div>
+                    <div class="card-icon">🏠</div>
                     <h3>Woningen & Appartementen</h3>
-                    <p>Volledige grote schoonmaak, inclusief keuken, badkamer, vloeren en ramen.</p>
+                    <p>Volledige grote schoonmaak, inclusief keuken, badkamer, vloeren en ramen. Uw thuis verdient de beste zorg.</p>
+                    <div class="card-decoration"></div>
                 </div>
-                <div class="service-card">
-                    <div class="service-icon">&#128666;</div>
-                    <h3>Na Verhuizing & Huurders</h3>
+                <div class="bento-card bento-medium" data-animate="fade-up" data-delay="0.2">
+                    <div class="card-glow"></div>
+                    <div class="card-icon">🚚</div>
+                    <h3>Na Verhuizing</h3>
                     <p>Woningen snel en grondig klaarmaken voor nieuwe bewoners of verhuur.</p>
+                    <div class="card-decoration"></div>
                 </div>
-                <div class="service-card">
-                    <div class="service-icon">&#128295;</div>
+                <div class="bento-card bento-medium" data-animate="fade-up" data-delay="0.3">
+                    <div class="card-glow"></div>
+                    <div class="card-icon">🔧</div>
                     <h3>Na Renovatie</h3>
                     <p>Verwijderen van bouwstof en vuilresten, ruimte klaar voor gebruik.</p>
+                    <div class="card-decoration"></div>
                 </div>
-                <div class="service-card">
-                    <div class="service-icon">&#127970;</div>
+                <div class="bento-card bento-wide" data-animate="fade-up" data-delay="0.4">
+                    <div class="card-glow"></div>
+                    <div class="card-icon">🏢</div>
                     <h3>Kleine Kantoren</h3>
-                    <p>Periodieke schoonmaak voor kleine ondernemingen en commerci&euml;le ruimtes.</p>
+                    <p>Periodieke schoonmaak voor kleine ondernemingen en commerciële ruimtes. Wij zorgen voor een frisse werkomgeving.</p>
+                    <div class="card-decoration"></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- PARTNERS / ПАРТНЁРЫ -->
-    <section id="partners" class="section section-alt">
+
+    <!-- Stats Section -->
+    <section class="section section-stats">
         <div class="container">
-            <h2>Onze Partners</h2>
-            <div class="partners-grid">
-                <div class="partner-card">
-                    <div class="partner-avatar">AS</div>
-                    <h3>Ali Sahar</h3>
-                    <p>Verantwoordelijk voor klantrelaties, marketing en commerci&euml;le ontwikkeling. Ali heeft ervaring met klantenservice en communicatie, en zorgt voor een professionele en persoonlijke benadering van elke klant.</p>
+            <div class="stats-grid">
+                <div class="stat-card" data-animate="fade-up" data-delay="0.1">
+                    <div class="stat-number" data-count="100">0</div>
+                    <div class="stat-suffix">%</div>
+                    <div class="stat-label">Klanttevredenheid</div>
                 </div>
-                <div class="partner-card">
-                    <div class="partner-avatar">IG</div>
-                    <h3>Israpil Gadaborshev</h3>
-                    <p>Verantwoordelijk voor operationele zaken, planning en uitvoering van schoonmaakwerkzaamheden. Israpil heeft praktische ervaring in de schoonmaakbranche en zorgt voor kwaliteit en effici&euml;ntie op de werkvloer.</p>
+                <div class="stat-card" data-animate="fade-up" data-delay="0.2">
+                    <div class="stat-number" data-count="24">0</div>
+                    <div class="stat-suffix">uur</div>
+                    <div class="stat-label">Gratis herreiniging</div>
+                </div>
+                <div class="stat-card" data-animate="fade-up" data-delay="0.3">
+                    <div class="stat-number" data-count="7">0</div>
+                    <div class="stat-suffix">/7</div>
+                    <div class="stat-label">Beschikbaarheid</div>
+                </div>
+                <div class="stat-card" data-animate="fade-up" data-delay="0.4">
+                    <div class="stat-number" data-count="2">0</div>
+                    <div class="stat-suffix">partners</div>
+                    <div class="stat-label">Persoonlijke aanpak</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- PRIJZEN / ЦЕНЫ -->
-    <section id="prijzen" class="section">
+    <!-- Advantages Section -->
+    <section class="section section-advantages" id="voordelen">
         <div class="container">
-            <h2>Onze Prijzen</h2>
+            <div class="section-header" data-animate="fade-up">
+                <span class="section-tag">Voordelen</span>
+                <h2 class="section-title">Waarom <span class="text-gradient">CleanStart?</span></h2>
+                <p class="section-desc">Ontdek wat ons onderscheidt van de rest</p>
+            </div>
+            <div class="advantages-grid">
+                <div class="advantage-card" data-animate="fade-up" data-delay="0.1">
+                    <div class="adv-number">01</div>
+                    <h4>Lage opstartkosten</h4>
+                    <p>Minimale investeringen nodig — wij houden de kosten laag zodat u profiteert.</p>
+                </div>
+                <div class="advantage-card" data-animate="fade-up" data-delay="0.15">
+                    <div class="adv-number">02</div>
+                    <h4>Persoonlijke aanpak</h4>
+                    <p>Direct contact, geen tussenpersonen of callcenters. Wij kennen u bij naam.</p>
+                </div>
+                <div class="advantage-card" data-animate="fade-up" data-delay="0.2">
+                    <div class="adv-number">03</div>
+                    <h4>Flexibele beschikbaarheid</h4>
+                    <p>Avonden, weekenden — wanneer het u past. Wij passen ons aan.</p>
+                </div>
+                <div class="advantage-card" data-animate="fade-up" data-delay="0.25">
+                    <div class="adv-number">04</div>
+                    <h4>Lokale focus</h4>
+                    <p>Specifieke kennis van Rotterdam en buurtgerichte dienstverlening.</p>
+                </div>
+                <div class="advantage-card" data-animate="fade-up" data-delay="0.3">
+                    <div class="adv-number">05</div>
+                    <h4>Kwaliteitsgarantie</h4>
+                    <p>Niet tevreden? Gratis herreiniging binnen 24 uur. Zonder discussie.</p>
+                </div>
+                <div class="advantage-card" data-animate="fade-up" data-delay="0.35">
+                    <div class="adv-number">06</div>
+                    <h4>Milieuvriendelijk</h4>
+                    <p>Ecologische schoonmaakmiddelen — goed voor uw huis én de planeet.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Pricing Section -->
+    <section class="section section-pricing" id="prijzen">
+        <div class="container">
+            <div class="section-header" data-animate="fade-up">
+                <span class="section-tag">Prijzen</span>
+                <h2 class="section-title">Transparante <span class="text-gradient">tarieven</span></h2>
+                <p class="section-desc">Eerlijke prijzen zonder verborgen kosten</p>
+            </div>
             <div class="pricing-grid">
-                <div class="price-card">
-                    <h3>Uurtarief</h3>
-                    <div class="price">&euro;25 &ndash; &euro;35</div>
-                    <p>Per uur, afhankelijk van het type schoonmaak en de omvang van het werk.</p>
-                </div>
-                <div class="price-card featured">
-                    <h3>Na Verhuizing</h3>
-                    <div class="price">&euro;200 &ndash; &euro;500</div>
-                    <p>Volledige schoonmaak na verhuizing, inclusief keuken, badkamer en alle ruimtes.</p>
-                </div>
-                <div class="price-card">
-                    <h3>Na Renovatie</h3>
-                    <div class="price">&euro;250 &ndash; &euro;700</div>
-                    <p>Grondige reiniging na verbouwing, inclusief verwijdering van bouwstof en puin.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- VOORDELEN / КОНКУРЕНТНЫЕ ПРЕИМУЩЕСТВА -->
-    <section id="voordelen" class="section section-alt">
-        <div class="container">
-            <h2>Waarom CleanStart?</h2>
-            <div class="advantages-list">
-                <div class="advantage-item">
-                    <span class="advantage-number">1</span>
-                    <div>
-                        <h4>Lage opstartkosten</h4>
-                        <p>Minimale investeringen nodig om te starten (&euro;950 &ndash; &euro;1900).</p>
+                <div class="pricing-card" data-animate="fade-up" data-delay="0.1">
+                    <div class="pricing-card-inner">
+                        <div class="pricing-header">
+                            <span class="pricing-type">Basis</span>
+                            <h3>Uurtarief</h3>
+                        </div>
+                        <div class="pricing-amount">
+                            <span class="currency">€</span>
+                            <span class="price">25</span>
+                            <span class="price-range">– €35</span>
+                        </div>
+                        <p class="pricing-desc">Per uur, afhankelijk van type schoonmaak en omvang van het werk.</p>
+                        <ul class="pricing-features">
+                            <li>Flexibele planning</li>
+                            <li>Alle ruimtes</li>
+                            <li>Eigen materialen</li>
+                        </ul>
+                        <a href="#contact" class="pricing-btn magnetic-btn">Aanvragen</a>
                     </div>
                 </div>
-                <div class="advantage-item">
-                    <span class="advantage-number">2</span>
-                    <div>
-                        <h4>Persoonlijke aanpak</h4>
-                        <p>Direct contact met de klant, geen tussenpersonen of callcenters.</p>
+                <div class="pricing-card pricing-featured" data-animate="fade-up" data-delay="0.2">
+                    <div class="pricing-badge">Populair</div>
+                    <div class="pricing-card-inner">
+                        <div class="pricing-header">
+                            <span class="pricing-type">Complete</span>
+                            <h3>Na Verhuizing</h3>
+                        </div>
+                        <div class="pricing-amount">
+                            <span class="currency">€</span>
+                            <span class="price">200</span>
+                            <span class="price-range">– €500</span>
+                        </div>
+                        <p class="pricing-desc">Volledige schoonmaak inclusief keuken, badkamer en alle ruimtes.</p>
+                        <ul class="pricing-features">
+                            <li>Alles inclusief</li>
+                            <li>Snelle oplevering</li>
+                            <li>Kwaliteitsgarantie</li>
+                            <li>Gratis herreiniging</li>
+                        </ul>
+                        <a href="#contact" class="pricing-btn pricing-btn-primary magnetic-btn">Aanvragen</a>
                     </div>
                 </div>
-                <div class="advantage-item">
-                    <span class="advantage-number">3</span>
-                    <div>
-                        <h4>Flexibele beschikbaarheid</h4>
-                        <p>Beschikbaar op avonden en weekenden, wanneer de klant het nodig heeft.</p>
-                    </div>
-                </div>
-                <div class="advantage-item">
-                    <span class="advantage-number">4</span>
-                    <div>
-                        <h4>Lokale focus</h4>
-                        <p>Specifieke kennis van de Rotterdamse markt en buurtgerichte dienstverlening.</p>
-                    </div>
-                </div>
-                <div class="advantage-item">
-                    <span class="advantage-number">5</span>
-                    <div>
-                        <h4>Kwaliteitsgarantie</h4>
-                        <p>Niet tevreden? Gratis herreiniging binnen 24 uur.</p>
-                    </div>
-                </div>
-                <div class="advantage-item">
-                    <span class="advantage-number">6</span>
-                    <div>
-                        <h4>Milieuvriendelijke middelen</h4>
-                        <p>Gebruik van ecologische schoonmaakmiddelen waar mogelijk.</p>
+                <div class="pricing-card" data-animate="fade-up" data-delay="0.3">
+                    <div class="pricing-card-inner">
+                        <div class="pricing-header">
+                            <span class="pricing-type">Premium</span>
+                            <h3>Na Renovatie</h3>
+                        </div>
+                        <div class="pricing-amount">
+                            <span class="currency">€</span>
+                            <span class="price">250</span>
+                            <span class="price-range">– €700</span>
+                        </div>
+                        <p class="pricing-desc">Grondige reiniging na verbouwing, inclusief bouwstof en puinverwijdering.</p>
+                        <ul class="pricing-features">
+                            <li>Bouwstof verwijdering</li>
+                            <li>Dieptereiniging</li>
+                            <li>Professionele uitrusting</li>
+                        </ul>
+                        <a href="#contact" class="pricing-btn magnetic-btn">Aanvragen</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- STARTPLAN / СТАРТОВЫЙ ПЛАН -->
-    <section id="plan" class="section">
-        <div class="container">
-            <h2>Startplan: 4 Fasen</h2>
-            <div class="phases-grid">
-                <div class="phase-card">
-                    <div class="phase-number">Fase 1</div>
-                    <h3>Voorbereiding (Maand 1)</h3>
-                    <p>KvK-inschrijving, verzekeringen afsluiten, basisuitrusting aanschaffen, website en social media opzetten.</p>
-                </div>
-                <div class="phase-card">
-                    <div class="phase-number">Fase 2</div>
-                    <h3>Lancering (Maand 2&ndash;3)</h3>
-                    <p>Eerste klanten werven via netwerk, flyers en social media. Focus op kwaliteit en mond-tot-mondreclame.</p>
-                </div>
-                <div class="phase-card">
-                    <div class="phase-number">Fase 3</div>
-                    <h3>Groei (Maand 4&ndash;6)</h3>
-                    <p>Klantenbestand uitbreiden, samenwerkingen met makelaars en verhuurders opzetten, reviews verzamelen.</p>
-                </div>
-                <div class="phase-card">
-                    <div class="phase-number">Fase 4</div>
-                    <h3>Stabilisatie (Maand 7&ndash;12)</h3>
-                    <p>Vaste klantenkring opbouwen, eventueel eerste medewerker aannemen, processen optimaliseren.</p>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- MARKETING / МАРКЕТИНГ -->
-    <section id="marketing" class="section section-alt">
+    <!-- Timeline / Plan Section -->
+    <section class="section section-timeline" id="plan">
         <div class="container">
-            <h2>Marketing & Kanalen</h2>
-            <div class="marketing-grid">
-                <div class="marketing-item">
-                    <h4>&#128241; Social Media</h4>
-                    <p>Instagram en Facebook: voor- en na-foto&rsquo;s, tips, acties en klantcontact.</p>
-                </div>
-                <div class="marketing-item">
-                    <h4>&#128270; Google Mijn Bedrijf</h4>
-                    <p>Lokale vindbaarheid vergroten, reviews verzamelen en reageren op vragen.</p>
-                </div>
-                <div class="marketing-item">
-                    <h4>&#128220; Flyers & Lokale advertenties</h4>
-                    <p>Verspreiding in brievenbussen, supermarkten en buurtcentra in Rotterdam.</p>
-                </div>
-                <div class="marketing-item">
-                    <h4>&#129309; Samenwerkingen</h4>
-                    <p>Partnerschappen met makelaars, verhuurders en renovatiebedrijven.</p>
-                </div>
-                <div class="marketing-item">
-                    <h4>&#128172; Mond-tot-mondreclame</h4>
-                    <p>Tevreden klanten doorverwijzen nieuwe klanten &mdash; kortingsacties voor verwijzingen.</p>
-                </div>
-                <div class="marketing-item">
-                    <h4>&#128187; Website</h4>
-                    <p>Professionele website met diensten, prijzen en contactformulier.</p>
-                </div>
+            <div class="section-header" data-animate="fade-up">
+                <span class="section-tag">Roadmap</span>
+                <h2 class="section-title">Ons <span class="text-gradient">groeiplan</span></h2>
+                <p class="section-desc">Van startup naar een gevestigde onderneming</p>
             </div>
-        </div>
-    </section>
-
-    <!-- FINANCIEEL / ФИНАНСОВАЯ МОДЕЛЬ -->
-    <section id="financieel" class="section">
-        <div class="container">
-            <h2>Financi&euml;le Model</h2>
-            <p class="section-subtitle">Startkosten: &euro;950 &ndash; &euro;1.900</p>
-            <div class="table-wrapper">
-                <table class="finance-table">
-                    <thead>
-                        <tr>
-                            <th>Kostenpost</th>
-                            <th>Minimum</th>
-                            <th>Maximum</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>KvK-inschrijving</td>
-                            <td>&euro;75</td>
-                            <td>&euro;75</td>
-                        </tr>
-                        <tr>
-                            <td>Verzekering (aansprakelijkheid)</td>
-                            <td>&euro;150</td>
-                            <td>&euro;300</td>
-                        </tr>
-                        <tr>
-                            <td>Schoonmaakmiddelen & uitrusting</td>
-                            <td>&euro;200</td>
-                            <td>&euro;400</td>
-                        </tr>
-                        <tr>
-                            <td>Marketing (flyers, website)</td>
-                            <td>&euro;150</td>
-                            <td>&euro;500</td>
-                        </tr>
-                        <tr>
-                            <td>Transport (fiets/OV)</td>
-                            <td>&euro;100</td>
-                            <td>&euro;200</td>
-                        </tr>
-                        <tr>
-                            <td>Overige kosten</td>
-                            <td>&euro;275</td>
-                            <td>&euro;425</td>
-                        </tr>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td><strong>Totaal</strong></td>
-                            <td><strong>&euro;950</strong></td>
-                            <td><strong>&euro;1.900</strong></td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
-        </div>
-    </section>
-
-    <!-- RISICO'S / РИСКИ -->
-    <section id="risicos" class="section section-alt">
-        <div class="container">
-            <h2>Risico's & Maatregelen</h2>
-            <div class="table-wrapper">
-                <table class="risk-table">
-                    <thead>
-                        <tr>
-                            <th>Risico</th>
-                            <th>Maatregel</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Te weinig klanten in het begin</td>
-                            <td>Actieve marketing, lage instapprijzen, netwerk benutten</td>
-                        </tr>
-                        <tr>
-                            <td>Concurrentie van gevestigde bedrijven</td>
-                            <td>Focus op persoonlijke service, flexibiliteit en niche (na verhuis/renovatie)</td>
-                        </tr>
-                        <tr>
-                            <td>Schade bij klant</td>
-                            <td>Aansprakelijkheidsverzekering afsluiten</td>
-                        </tr>
-                        <tr>
-                            <td>Ziekte of uitval</td>
-                            <td>Twee partners die elkaar kunnen vervangen</td>
-                        </tr>
-                        <tr>
-                            <td>Seizoensgebonden vraag</td>
-                            <td>Diversificatie van diensten, sparen in drukke periodes</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
-
-    <!-- CONCLUSIE / ЗАКЛЮЧЕНИЕ -->
-    <section id="conclusie" class="section">
-        <div class="container">
-            <h2>Conclusie & Toekomstvisie</h2>
             <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <h4>Korte termijn (0&ndash;6 maanden)</h4>
-                        <p>Opstart bedrijf, eerste klanten werven, reputatie opbouwen via kwaliteit en betrouwbaarheid.</p>
+                <div class="timeline-line" id="timelineLine"></div>
+                <div class="timeline-item" data-animate="fade-up" data-delay="0.1">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <span class="timeline-phase">Fase 1</span>
+                        <h4>Voorbereiding</h4>
+                        <span class="timeline-period">Maand 1</span>
+                        <p>KvK-inschrijving, verzekeringen, basisuitrusting, website en social media opzetten.</p>
                     </div>
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <h4>Middellange termijn (6&ndash;18 maanden)</h4>
-                        <p>Vaste klantenkring, samenwerkingen met vastgoedbedrijven, eerste medewerker aannemen.</p>
+                <div class="timeline-item" data-animate="fade-up" data-delay="0.2">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <span class="timeline-phase">Fase 2</span>
+                        <h4>Lancering</h4>
+                        <span class="timeline-period">Maand 2–3</span>
+                        <p>Eerste klanten werven via netwerk, flyers en social media. Focus op kwaliteit.</p>
                     </div>
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <h4>Lange termijn (18+ maanden)</h4>
-                        <p>Uitbreiding naar meer wijken, teamgroei, mogelijke specialisatie in commerci&euml;le schoonmaak.</p>
+                <div class="timeline-item" data-animate="fade-up" data-delay="0.3">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <span class="timeline-phase">Fase 3</span>
+                        <h4>Groei</h4>
+                        <span class="timeline-period">Maand 4–6</span>
+                        <p>Klantenbestand uitbreiden, samenwerkingen met makelaars en verhuurders.</p>
+                    </div>
+                </div>
+                <div class="timeline-item" data-animate="fade-up" data-delay="0.4">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <span class="timeline-phase">Fase 4</span>
+                        <h4>Stabilisatie</h4>
+                        <span class="timeline-period">Maand 7–12</span>
+                        <p>Vaste klantenkring, eerste medewerker, processen optimaliseren.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CONTACTFORMULIER / ФОРМА ОБРАТНОЙ СВЯЗИ -->
-    <section id="contact" class="section section-alt">
+    <!-- Partners Section -->
+    <section class="section section-partners">
         <div class="container">
-            <h2>Contact</h2>
-            <p class="section-subtitle">Neem contact met ons op voor een vrijblijvende offerte</p>
-            <form id="contactForm" class="contact-form" action="https://formsubmit.co/adsay2020@list.ru" method="POST">
-                <input type="hidden" name="_subject" value="Nieuwe aanvraag via CleanStart Rotterdam website">
-                <input type="hidden" name="_captcha" value="false">
-                <input type="hidden" name="_next" value="#">
-                <div class="form-group">
-                    <label for="naam">Naam *</label>
-                    <input type="text" id="naam" name="naam" required placeholder="Uw naam">
+            <div class="section-header" data-animate="fade-up">
+                <span class="section-tag">Team</span>
+                <h2 class="section-title">De <span class="text-gradient">oprichters</span></h2>
+                <p class="section-desc">Twee partners, één visie: uw tevredenheid</p>
+            </div>
+            <div class="partners-grid">
+                <div class="partner-card" data-animate="fade-up" data-delay="0.1">
+                    <div class="partner-avatar-wrap">
+                        <div class="partner-avatar">AS</div>
+                        <div class="partner-ring"></div>
+                    </div>
+                    <h3>Ali Sahar</h3>
+                    <span class="partner-role">Commercieel & Marketing</span>
+                    <p>Verantwoordelijk voor klantrelaties, marketing en commerciële ontwikkeling. Professionele en persoonlijke benadering van elke klant.</p>
                 </div>
-                <div class="form-group">
-                    <label for="telefoon">Telefoon *</label>
-                    <input type="tel" id="telefoon" name="telefoon" required placeholder="Uw telefoonnummer">
+                <div class="partner-card" data-animate="fade-up" data-delay="0.2">
+                    <div class="partner-avatar-wrap">
+                        <div class="partner-avatar">IG</div>
+                        <div class="partner-ring"></div>
+                    </div>
+                    <h3>Israpil Gadaborshev</h3>
+                    <span class="partner-role">Operationeel & Uitvoering</span>
+                    <p>Verantwoordelijk voor planning en uitvoering. Praktische ervaring in de schoonmaakbranche, zorgt voor kwaliteit en efficiëntie.</p>
                 </div>
-                <div class="form-group">
-                    <label for="email">E-mail *</label>
-                    <input type="email" id="email" name="email" required placeholder="Uw e-mailadres">
-                </div>
-                <div class="form-group">
-                    <label for="dienst">Type schoonmaak</label>
-                    <select id="dienst" name="dienst">
-                        <option value="">-- Kies een dienst --</option>
-                        <option value="Woningen & Appartementen">Woningen & Appartementen</option>
-                        <option value="Na Verhuizing & Huurders">Na Verhuizing & Huurders</option>
-                        <option value="Na Renovatie">Na Renovatie</option>
-                        <option value="Kleine Kantoren">Kleine Kantoren</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="bericht">Bericht</label>
-                    <textarea id="bericht" name="bericht" rows="5" placeholder="Uw bericht (optioneel)"></textarea>
-                </div>
-                <button type="submit" class="btn-primary btn-submit">Versturen</button>
-            </form>
-            <div id="formSuccess" class="form-success hidden">
-                Bedankt! Uw bericht is verzonden. Wij nemen zo snel mogelijk contact met u op.
             </div>
         </div>
     </section>
 
-    <!-- FOOTER / ПОДВАЛ -->
-    <footer>
+
+    <!-- Contact Section -->
+    <section class="section section-contact" id="contact">
         <div class="container">
-            <div class="footer-content">
+            <div class="contact-wrapper">
+                <div class="contact-info" data-animate="fade-up">
+                    <span class="section-tag">Contact</span>
+                    <h2 class="section-title">Laten we <span class="text-gradient">beginnen</span></h2>
+                    <p class="contact-desc">Neem contact met ons op voor een vrijblijvende offerte. Wij reageren binnen 24 uur.</p>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <span class="contact-icon">📍</span>
+                            <span>Rotterdam, Nederland</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">📱</span>
+                            <span>WhatsApp Business beschikbaar</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">⚡</span>
+                            <span>Reactie binnen 24 uur</span>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form" data-animate="fade-up" data-delay="0.2" action="https://formsubmit.co/adsay2020@list.ru" method="POST">
+                    <input type="hidden" name="_subject" value="Nieuwe aanvraag via CleanStart Rotterdam website">
+                    <input type="hidden" name="_captcha" value="false">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="naam">Naam</label>
+                            <input type="text" id="naam" name="naam" required placeholder="Uw naam">
+                        </div>
+                        <div class="form-group">
+                            <label for="telefoon">Telefoon</label>
+                            <input type="tel" id="telefoon" name="telefoon" required placeholder="+31 6 ...">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" name="email" required placeholder="uw@email.nl">
+                    </div>
+                    <div class="form-group">
+                        <label for="dienst">Type schoonmaak</label>
+                        <select id="dienst" name="dienst">
+                            <option value="">Kies een dienst</option>
+                            <option value="Woningen & Appartementen">Woningen & Appartementen</option>
+                            <option value="Na Verhuizing & Huurders">Na Verhuizing & Huurders</option>
+                            <option value="Na Renovatie">Na Renovatie</option>
+                            <option value="Kleine Kantoren">Kleine Kantoren</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="bericht">Bericht</label>
+                        <textarea id="bericht" name="bericht" rows="4" placeholder="Vertel ons over uw wensen..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary magnetic-btn form-submit-btn">
+                        <span class="btn-text">Versturen</span>
+                        <span class="btn-icon">→</span>
+                        <div class="btn-glow"></div>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-glow"></div>
+        <div class="container">
+            <div class="footer-top">
                 <div class="footer-brand">
-                    <h3>CleanStart Rotterdam</h3>
-                    <p>Betaalbare, kwalitatieve en betrouwbare schoonmaakdiensten.</p>
+                    <span class="logo-icon">CS</span>
+                    <span class="logo-text">CleanStart Rotterdam</span>
                 </div>
-                <div class="footer-contact">
-                    <p><strong>Rotterdam, mei 2026</strong></p>
-                    <p>&#128241; WhatsApp Business: beschikbaar</p>
-                    <p>Opgericht door Ali Sahar & Israpil Gadaborshev</p>
+                <p class="footer-tagline">Your fresh start. Our clean touch.</p>
+            </div>
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Diensten</h4>
+                    <a href="#diensten">Woningen</a>
+                    <a href="#diensten">Na Verhuizing</a>
+                    <a href="#diensten">Na Renovatie</a>
+                    <a href="#diensten">Kantoren</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Bedrijf</h4>
+                    <a href="#voordelen">Voordelen</a>
+                    <a href="#plan">Ons Plan</a>
+                    <a href="#prijzen">Prijzen</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <a href="#contact">Offerte aanvragen</a>
+                    <a href="#">WhatsApp Business</a>
+                    <span class="footer-founders">Ali Sahar & Israpil Gadaborshev</span>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 CleanStart Rotterdam. Alle rechten voorbehouden.</p>
+                <p>© 2026 CleanStart Rotterdam. Alle rechten voorbehouden.</p>
             </div>
         </div>
     </footer>
