@@ -1,469 +1,282 @@
-/* ═══════════════════════════════════════════════════════════════
-   CleanStart Rotterdam — Ultra Premium Interactions Engine
-   Cinematic motion · Magnetic UI · Particle system · Smooth scroll
-   ═══════════════════════════════════════════════════════════════ */
-
-(function() {
-    'use strict';
-
-    // === LOADER ===
-    const loader = document.getElementById('loader');
-    window.addEventListener('load', () => {
-        setTimeout(() => {
+document.addEventListener('DOMContentLoaded', function () {
+    // ===== Loader =====
+    setTimeout(function () {
+        var loader = document.getElementById('loader');
+        if (loader) {
             loader.classList.add('hidden');
-            document.body.style.overflow = '';
-            initHeroAnimations();
-        }, 2200);
-    });
-    document.body.style.overflow = 'hidden';
-
-    // === CUSTOM CURSOR ===
-    const cursor = document.getElementById('cursor');
-    const follower = document.getElementById('cursorFollower');
-    let mouseX = 0, mouseY = 0;
-    let cursorX = 0, cursorY = 0;
-    let followerX = 0, followerY = 0;
-
-    document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-    });
-
-    function animateCursor() {
-        cursorX += (mouseX - cursorX) * 0.2;
-        cursorY += (mouseY - cursorY) * 0.2;
-        followerX += (mouseX - followerX) * 0.08;
-        followerY += (mouseY - followerY) * 0.08;
-
-        if (cursor) {
-            cursor.style.transform = `translate(${cursorX - 4}px, ${cursorY - 4}px)`;
         }
-        if (follower) {
-            follower.style.transform = `translate(${followerX - 18}px, ${followerY - 18}px)`;
-        }
-        requestAnimationFrame(animateCursor);
-    }
-    animateCursor();
+    }, 2000);
 
-    // Cursor hover effects
-    document.addEventListener('mouseover', (e) => {
-        const target = e.target.closest('a, button, .bento-card, .pricing-card, .advantage-card, .partner-card, .timeline-card');
-        if (target && follower) {
-            follower.classList.add('hovering');
-        }
-    });
-    document.addEventListener('mouseout', (e) => {
-        const target = e.target.closest('a, button, .bento-card, .pricing-card, .advantage-card, .partner-card, .timeline-card');
-        if (target && follower) {
-            follower.classList.remove('hovering');
-        }
-    });
+    // ===== Theme Toggle =====
+    var themeToggle = document.getElementById('theme-toggle');
+    var savedTheme = localStorage.getItem('cleanstart-theme');
 
-
-    // === SCROLL PROGRESS ===
-    const scrollProgress = document.getElementById('scrollProgress');
-    function updateScrollProgress() {
-        const scrollTop = window.scrollY;
-        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const progress = (scrollTop / docHeight) * 100;
-        if (scrollProgress) {
-            scrollProgress.style.width = progress + '%';
-        }
+    if (savedTheme === 'light') {
+        document.body.classList.add('light-theme');
+        if (themeToggle) themeToggle.classList.add('light');
     }
 
-    // === NAVIGATION ===
-    const nav = document.getElementById('nav');
-    const navToggle = document.getElementById('navToggle');
-    const navLinks = document.getElementById('navLinks');
-
-    function updateNav() {
-        if (window.scrollY > 50) {
-            nav.classList.add('scrolled');
-        } else {
-            nav.classList.remove('scrolled');
-        }
-    }
-
-    navToggle.addEventListener('click', () => {
-        navToggle.classList.toggle('active');
-        navLinks.classList.toggle('active');
-    });
-
-    // Close mobile menu on link click
-    navLinks.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            navToggle.classList.remove('active');
-            navLinks.classList.remove('active');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', function () {
+            document.body.classList.toggle('light-theme');
+            themeToggle.classList.toggle('light');
+            var isLight = document.body.classList.contains('light-theme');
+            localStorage.setItem('cleanstart-theme', isLight ? 'light' : 'dark');
         });
-    });
+    }
 
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', (e) => {
-            e.preventDefault();
-            const target = document.querySelector(anchor.getAttribute('href'));
-            if (target) {
-                const offset = 80;
-                const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
-                window.scrollTo({ top, behavior: 'smooth' });
+    // ===== Custom Cursor (only for pointer: fine devices) =====
+    var hasFinePointer = window.matchMedia('(pointer: fine)').matches;
+
+    if (hasFinePointer) {
+        var cursor = document.getElementById('cursor');
+        var follower = document.getElementById('cursor-follower');
+        var mouseX = 0, mouseY = 0;
+        var followerX = 0, followerY = 0;
+
+        document.addEventListener('mousemove', function (e) {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            if (cursor) {
+                cursor.style.left = mouseX + 'px';
+                cursor.style.top = mouseY + 'px';
             }
         });
-    });
 
-    // === SCROLL EVENT (throttled) ===
-    let ticking = false;
-    window.addEventListener('scroll', () => {
-        if (!ticking) {
-            requestAnimationFrame(() => {
-                updateScrollProgress();
-                updateNav();
-                ticking = false;
+        function animateFollower() {
+            followerX += (mouseX - followerX) * 0.12;
+            followerY += (mouseY - followerY) * 0.12;
+            if (follower) {
+                follower.style.left = followerX + 'px';
+                follower.style.top = followerY + 'px';
+            }
+            requestAnimationFrame(animateFollower);
+        }
+        animateFollower();
+
+
+        // Hover effects on interactive elements
+        var hoverElements = document.querySelectorAll('a, button, .btn, .bento-card, .advantage-card, .pricing-card');
+        hoverElements.forEach(function (el) {
+            el.addEventListener('mouseenter', function () {
+                if (follower) follower.classList.add('hover');
             });
-            ticking = true;
+            el.addEventListener('mouseleave', function () {
+                if (follower) follower.classList.remove('hover');
+            });
+        });
+    }
+
+    // ===== Scroll Progress =====
+    var scrollProgress = document.getElementById('scroll-progress');
+    window.addEventListener('scroll', function () {
+        if (scrollProgress) {
+            var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            var scrollPercent = (scrollTop / docHeight) * 100;
+            scrollProgress.style.width = scrollPercent + '%';
         }
     });
 
-
-    // === INTERSECTION OBSERVER FOR ANIMATIONS ===
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const animObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                animObserver.unobserve(entry.target);
+    // ===== Nav Scroll Effect =====
+    var nav = document.getElementById('nav');
+    window.addEventListener('scroll', function () {
+        if (nav) {
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
             }
-        });
-    }, observerOptions);
-
-    document.querySelectorAll('[data-animate]').forEach(el => {
-        animObserver.observe(el);
+        }
     });
 
-    // === HERO ANIMATIONS ===
-    function initHeroAnimations() {
-        const heroElements = document.querySelectorAll('.hero [data-animate]');
-        heroElements.forEach(el => {
+    // ===== Mobile Nav Toggle =====
+    var navToggle = document.getElementById('nav-toggle');
+    var navLinks = document.getElementById('nav-links');
+
+    if (navToggle && navLinks) {
+        navToggle.addEventListener('click', function () {
+            navToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu on link click
+        navLinks.querySelectorAll('a').forEach(function (link) {
+            link.addEventListener('click', function () {
+                navToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+    }
+
+
+    // ===== Particle Canvas =====
+    try {
+        var canvas = document.getElementById('particles');
+        if (canvas) {
+            var ctx = canvas.getContext('2d');
+            var particles = [];
+            var particleCount = 50;
+
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            function Particle() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.radius = Math.random() * 2 + 0.5;
+                this.opacity = Math.random() * 0.5 + 0.2;
+            }
+
+            for (var i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+
+            function drawParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                for (var i = 0; i < particles.length; i++) {
+                    var p = particles[i];
+                    p.x += p.vx;
+                    p.y += p.vy;
+
+                    if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                    if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(79, 125, 247, ' + p.opacity + ')';
+                    ctx.fill();
+
+                    // Draw connections
+                    for (var j = i + 1; j < particles.length; j++) {
+                        var p2 = particles[j];
+                        var dx = p.x - p2.x;
+                        var dy = p.y - p2.y;
+                        var distance = Math.sqrt(dx * dx + dy * dy);
+
+                        if (distance < 150) {
+                            ctx.beginPath();
+                            ctx.moveTo(p.x, p.y);
+                            ctx.lineTo(p2.x, p2.y);
+                            ctx.strokeStyle = 'rgba(124, 92, 252, ' + (0.15 * (1 - distance / 150)) + ')';
+                            ctx.lineWidth = 0.5;
+                            ctx.stroke();
+                        }
+                    }
+                }
+
+                requestAnimationFrame(drawParticles);
+            }
+            drawParticles();
+        }
+    } catch (e) {
+        // Silently fail if canvas not supported
+    }
+
+
+    // ===== Intersection Observer for Animations =====
+    if ('IntersectionObserver' in window) {
+        var animateElements = document.querySelectorAll('[data-animate]');
+        var observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        animateElements.forEach(function (el) {
+            observer.observe(el);
+        });
+    } else {
+        // Fallback: show all elements immediately
+        var fallbackElements = document.querySelectorAll('[data-animate]');
+        fallbackElements.forEach(function (el) {
             el.classList.add('visible');
         });
     }
 
-    // === COUNTING ANIMATION FOR STATS ===
-    const statObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const numbers = entry.target.querySelectorAll('[data-count]');
-                numbers.forEach(num => {
-                    const target = parseInt(num.dataset.count);
-                    animateCount(num, 0, target, 1500);
+    // ===== Animated Counters =====
+    var counters = document.querySelectorAll('[data-count]');
+
+    function animateCounter(el) {
+        var target = parseInt(el.getAttribute('data-count'), 10);
+        var current = 0;
+        var duration = 2000;
+        var step = target / (duration / 16);
+
+        function updateCounter() {
+            current += step;
+            if (current >= target) {
+                el.textContent = target;
+            } else {
+                el.textContent = Math.floor(current);
+                requestAnimationFrame(updateCounter);
+            }
+        }
+        updateCounter();
+    }
+
+    if ('IntersectionObserver' in window) {
+        var counterObserver = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    animateCounter(entry.target);
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        counters.forEach(function (counter) {
+            counterObserver.observe(counter);
+        });
+    } else {
+        counters.forEach(function (counter) {
+            counter.textContent = counter.getAttribute('data-count');
+        });
+    }
+
+
+    // ===== Magnetic Buttons (only pointer: fine) =====
+    if (hasFinePointer) {
+        var magneticButtons = document.querySelectorAll('.magnetic');
+        magneticButtons.forEach(function (btn) {
+            btn.addEventListener('mousemove', function (e) {
+                var rect = btn.getBoundingClientRect();
+                var x = e.clientX - rect.left - rect.width / 2;
+                var y = e.clientY - rect.top - rect.height / 2;
+                btn.style.transform = 'translate(' + (x * 0.2) + 'px, ' + (y * 0.2) + 'px)';
+            });
+            btn.addEventListener('mouseleave', function () {
+                btn.style.transform = 'translate(0, 0)';
+            });
+        });
+    }
+
+    // ===== Smooth Scroll for Anchor Links =====
+    document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+        anchor.addEventListener('click', function (e) {
+            var targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            var targetEl = document.querySelector(targetId);
+            if (targetEl) {
+                e.preventDefault();
+                targetEl.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
                 });
-                statObserver.unobserve(entry.target);
             }
-        });
-    }, { threshold: 0.3 });
-
-    const statsSection = document.querySelector('.stats-grid');
-    if (statsSection) statObserver.observe(statsSection);
-
-    function animateCount(el, start, end, duration) {
-        const startTime = performance.now();
-        function update(currentTime) {
-            const elapsed = currentTime - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            // Ease out quart
-            const eased = 1 - Math.pow(1 - progress, 4);
-            const current = Math.round(start + (end - start) * eased);
-            el.textContent = current;
-            if (progress < 1) {
-                requestAnimationFrame(update);
-            }
-        }
-        requestAnimationFrame(update);
-    }
-
-    // === MAGNETIC BUTTONS ===
-    const magneticBtns = document.querySelectorAll('.magnetic-btn');
-    magneticBtns.forEach(btn => {
-        btn.addEventListener('mousemove', (e) => {
-            const rect = btn.getBoundingClientRect();
-            const x = e.clientX - rect.left - rect.width / 2;
-            const y = e.clientY - rect.top - rect.height / 2;
-            btn.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
-        });
-        btn.addEventListener('mouseleave', () => {
-            btn.style.transform = 'translate(0, 0)';
         });
     });
-
-
-    // === CARD GLOW FOLLOW MOUSE ===
-    const glowCards = document.querySelectorAll('.bento-card');
-    glowCards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            const glow = card.querySelector('.card-glow');
-            if (glow) {
-                glow.style.left = (x - 100) + 'px';
-                glow.style.top = (y - 100) + 'px';
-                glow.style.opacity = '1';
-            }
-        });
-        card.addEventListener('mouseleave', () => {
-            const glow = card.querySelector('.card-glow');
-            if (glow) glow.style.opacity = '0';
-        });
-    });
-
-    // === TILT EFFECT ON PRICING CARDS ===
-    const tiltCards = document.querySelectorAll('.pricing-card');
-    tiltCards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = (e.clientX - rect.left) / rect.width;
-            const y = (e.clientY - rect.top) / rect.height;
-            const rotateX = (y - 0.5) * -8;
-            const rotateY = (x - 0.5) * 8;
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
-        });
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
-        });
-    });
-
-    // === TIMELINE SCROLL PROGRESS ===
-    const timelineLine = document.getElementById('timelineLine');
-    if (timelineLine) {
-        const timelineObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const ratio = entry.intersectionRatio;
-                    const afterEl = timelineLine.querySelector(':after') || timelineLine;
-                    timelineLine.style.setProperty('--progress', Math.min(ratio * 2, 1));
-                }
-            });
-        }, { threshold: Array.from({length: 20}, (_, i) => i / 20) });
-
-        const timelineSection = document.querySelector('.timeline');
-        if (timelineSection) {
-            // Animate on scroll
-            window.addEventListener('scroll', () => {
-                const rect = timelineSection.getBoundingClientRect();
-                const windowH = window.innerHeight;
-                if (rect.top < windowH && rect.bottom > 0) {
-                    const progress = Math.min(Math.max((windowH - rect.top) / (rect.height + windowH), 0), 1);
-                    timelineLine.style.background = `linear-gradient(to bottom, var(--color-accent) ${progress * 100}%, var(--color-border) ${progress * 100}%)`;
-                }
-            });
-        }
-    }
-
-
-    // === HERO CANVAS PARTICLE SYSTEM ===
-    const canvas = document.getElementById('heroCanvas');
-    if (canvas) {
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-        let connections = [];
-        let animFrame;
-
-        function resizeCanvas() {
-            canvas.width = canvas.offsetWidth * window.devicePixelRatio;
-            canvas.height = canvas.offsetHeight * window.devicePixelRatio;
-            ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
-        }
-
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
-
-        class Particle {
-            constructor() {
-                this.reset();
-            }
-            reset() {
-                this.x = Math.random() * canvas.offsetWidth;
-                this.y = Math.random() * canvas.offsetHeight;
-                this.vx = (Math.random() - 0.5) * 0.3;
-                this.vy = (Math.random() - 0.5) * 0.3;
-                this.radius = Math.random() * 1.5 + 0.5;
-                this.opacity = Math.random() * 0.5 + 0.1;
-            }
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-
-                // Mouse interaction
-                const dx = mouseX - this.x;
-                const dy = mouseY - this.y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                if (dist < 150) {
-                    const force = (150 - dist) / 150;
-                    this.vx -= (dx / dist) * force * 0.02;
-                    this.vy -= (dy / dist) * force * 0.02;
-                }
-
-                // Bounds
-                if (this.x < 0 || this.x > canvas.offsetWidth) this.vx *= -1;
-                if (this.y < 0 || this.y > canvas.offsetHeight) this.vy *= -1;
-
-                // Damping
-                this.vx *= 0.99;
-                this.vy *= 0.99;
-            }
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(79, 125, 247, ${this.opacity})`;
-                ctx.fill();
-            }
-        }
-
-        // Create particles (adaptive count)
-        const isMobile = window.innerWidth < 768;
-        const particleCount = isMobile ? 30 : 60;
-        for (let i = 0; i < particleCount; i++) {
-            particles.push(new Particle());
-        }
-
-        function drawConnections() {
-            for (let i = 0; i < particles.length; i++) {
-                for (let j = i + 1; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < 120) {
-                        ctx.beginPath();
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        const opacity = (1 - dist / 120) * 0.15;
-                        ctx.strokeStyle = `rgba(79, 125, 247, ${opacity})`;
-                        ctx.lineWidth = 0.5;
-                        ctx.stroke();
-                    }
-                }
-            }
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.offsetWidth, canvas.offsetHeight);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
-            drawConnections();
-            animFrame = requestAnimationFrame(animate);
-        }
-
-        animate();
-
-        // Pause when not visible
-        const heroSection = document.getElementById('hero');
-        const heroObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    if (!animFrame) animate();
-                } else {
-                    cancelAnimationFrame(animFrame);
-                    animFrame = null;
-                }
-            });
-        });
-        heroObserver.observe(heroSection);
-    }
-
-
-    // === PARALLAX ON HERO ORBS ===
-    const orbs = document.querySelectorAll('.hero-gradient-orb');
-    window.addEventListener('mousemove', (e) => {
-        const x = (e.clientX / window.innerWidth - 0.5) * 2;
-        const y = (e.clientY / window.innerHeight - 0.5) * 2;
-        orbs.forEach((orb, i) => {
-            const speed = (i + 1) * 15;
-            orb.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
-        });
-    });
-
-    // === FORM INTERACTION ===
-    const form = document.querySelector('.contact-form');
-    if (form) {
-        const inputs = form.querySelectorAll('input, select, textarea');
-        inputs.forEach(input => {
-            input.addEventListener('focus', () => {
-                input.parentElement.classList.add('focused');
-            });
-            input.addEventListener('blur', () => {
-                input.parentElement.classList.remove('focused');
-            });
-        });
-
-        form.addEventListener('submit', (e) => {
-            const naam = document.getElementById('naam').value.trim();
-            const telefoon = document.getElementById('telefoon').value.trim();
-            const email = document.getElementById('email').value.trim();
-
-            if (!naam || !telefoon || !email) {
-                e.preventDefault();
-                alert('Vul alstublieft alle verplichte velden in.');
-                return;
-            }
-
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailPattern.test(email)) {
-                e.preventDefault();
-                alert('Voer een geldig e-mailadres in.');
-                return;
-            }
-        });
-    }
-
-    // === ADVANTAGE CARDS 3D TILT ===
-    const advCards = document.querySelectorAll('.advantage-card');
-    advCards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = (e.clientX - rect.left) / rect.width;
-            const y = (e.clientY - rect.top) / rect.height;
-            const rotateX = (y - 0.5) * -5;
-            const rotateY = (x - 0.5) * 5;
-            card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-3px)`;
-        });
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'perspective(800px) rotateX(0) rotateY(0) translateY(0)';
-        });
-    });
-
-    // === PARTNER CARDS HOVER GLOW ===
-    const partnerCards = document.querySelectorAll('.partner-card');
-    partnerCards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = ((e.clientX - rect.left) / rect.width) * 100;
-            const y = ((e.clientY - rect.top) / rect.height) * 100;
-            card.style.background = `radial-gradient(circle at ${x}% ${y}%, rgba(79, 125, 247, 0.06) 0%, var(--color-bg-card) 50%)`;
-        });
-        card.addEventListener('mouseleave', () => {
-            card.style.background = 'var(--color-bg-card)';
-        });
-    });
-
-    // === SMOOTH REVEAL FOR SECTIONS ===
-    const sections = document.querySelectorAll('.section');
-    const sectionObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-            }
-        });
-    }, { threshold: 0.05 });
-
-    sections.forEach(section => {
-        section.style.opacity = '0';
-        section.style.transition = 'opacity 1s var(--ease-out-expo)';
-        sectionObserver.observe(section);
-    });
-
-})();
+});
